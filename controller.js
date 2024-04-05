@@ -100,11 +100,11 @@ exports.autoLogin = async (req, res) => {
 
 exports.updateImage = async (req, res) => {
   try {
-    const { image, username } = req.body;
+    const { image, username, role } = req.body;
 
     const updatedUser = await userSchema.findOneAndUpdate(
       { username },
-      { $set: { image } },
+      { $set: { image, role } },
       { new: true }
     );
 
@@ -115,7 +115,7 @@ exports.updateImage = async (req, res) => {
     resSend(
       res,
       true,
-      { username, image: updatedUser.image },
+      { username, role: updatedUser.role, image: updatedUser.image },
       'Image has been updated'
     );
   } catch (error) {
